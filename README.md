@@ -1,3 +1,7 @@
+## NumPY Workaround on Windows
+As a workaround, you temporarily pin to NumPy 1.19.3 (`pip install numpy==1.19.3`) which has a fixed version of OpenBLAS that works correctly in Windows 2004/20H2. This fix broken other things (Linux, Windows-on-docker) and so could not be retained in NumPy 1.19.4.
+
+
 #predicting_stock_prices
 Stock Prediction Challenge by @Sirajology on [Youtube](https://youtu.be/SSu00IRRraY).
 

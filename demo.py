@@ -4,9 +4,7 @@ from sklearn.svm import SVR
 import matplotlib.pyplot as plt
 
 
-plt.switch_backend('newbackend')  
-
-
+plt.switch_backend('tkagg')  
 
 dates = []
 prices = []
@@ -16,12 +14,13 @@ def get_data(filename):
 		csvFileReader = csv.reader(csvfile)
 		next(csvFileReader)	# skipping column names
 		for row in csvFileReader:
-			dates.append(int(row[0].split('-')[0]))
+			dates.append(int(row[0].split('-')[2]))
 			prices.append(float(row[1]))
 	return
 
 def predict_price(dates, prices, x):
-	dates = np.reshape(dates,(len(dates), 1)) # converting to matrix of n X 1
+	dates = np.reshape(dates, (len(dates), 1)) # converting to matrix of n X 1
+	x = np.reshape(x,(len(x), 1))
 
 	svr_lin = SVR(kernel= 'linear', C= 1e3)
 	svr_poly = SVR(kernel= 'poly', C= 1e3, degree= 2)
@@ -43,7 +42,10 @@ def predict_price(dates, prices, x):
 	return svr_rbf.predict(x)[0], svr_lin.predict(x)[0], svr_poly.predict(x)[0]
 
 get_data('aapl.csv') # calling get_data method by passing the csv file to it
-#print "Dates- ", dates
-#print "Prices- ", prices
+# print("Dates- ", dates)
+# print("Prices- ", prices)
 
-predicted_price = predict_price(dates, prices, 29)  
+predicted_price = predict_price(dates, prices, [24])  
+
+print('\n', predicted_price, '\n')
+
